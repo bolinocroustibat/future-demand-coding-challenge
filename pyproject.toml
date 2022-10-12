@@ -9,10 +9,16 @@ packages = [{include = "future_demand_coding_challenge"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 beautifulsoup4 = "^4.11.1"
+typer = "^0.6.1"
+tqdm = "^4.64.1"
+requests = "^2.28.1"
+sqlmodel = "^0.0.8"
+psycopg2-binary = "^2.9.4"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
 isort = "^5.10.1"
+mypy = "^0.982"
 
 [build-system]
 requires = ["poetry-core"]

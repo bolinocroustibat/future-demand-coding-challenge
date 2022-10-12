@@ -1,5 +1,17 @@
 # Future Demand Coding Challenge
 
+
+## Main Python dependencies
+
+- Python 3.9+
+- Docker
+
+### Python packages
+
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
+- [Typer](https://typer.tiangolo.com/)
+- [TQDM](https://github.com/tqdm/tqdm)
+
 ## How to run
 
 - Install Docker, if not already
@@ -8,7 +20,7 @@
 
 - Export env variable `POSTGRES_DB` for defining your default PostgreSQL database:
 ```sh
-export POSTGRES_DB="postgres"
+export POSTGRES_DB="future-demand"
 ```
 
 - Start Docker compose:
@@ -17,3 +29,6 @@ docker-compose up -d
 ```
 
 - Run the script
+```sh
+python3 crawl.py [--help] [--verbose]
+```
