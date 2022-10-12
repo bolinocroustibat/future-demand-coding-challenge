@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "future-demand-coding-challenge"
+version = "0.1.0"
+description = ""
+authors = ["Adrien Carpentier <me@adriencarpentier.com>"]
+readme = "README.md"
+packages = [{include = "future_demand_coding_challenge"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+beautifulsoup4 = "^4.11.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,28 @@
+# Project-specific
+/postgresql
+
+# Direnv
+.envrc
+
+# Python
+*.pyc
+.Python
+__pycache__
+.pytest_cache
+venv/
+.venv/
+
+# VS Code
+/.vscode/
+/.vs/
+
+# MacOS
+**/.DS_Store
+
+# Poetry
+poetry.lock
+
+# PDM
+__pypackages__
+.pdm.toml
+pdm.lock

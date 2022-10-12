@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: future-demand-coding-challenge-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust # no password
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGDATA=/var/lib/postgresql/data/pgdata # specify the location of the database body to avoid postgresql to create data in the default location where it already exists
