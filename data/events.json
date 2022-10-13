@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Ensemble of the Lucerne Festival Contemporary Orchestra (LFCO) | The Rhythm Method",
+    "start_datetime": "2022-11-18 19:30:00",
+    "end_datetime": null,
+    "location": "Verkehrshaus, Planetarium",
+    "artists": "Thorvaldsdottir"
+  },
+  {
+    "id": 2,
+    "name": "Lucerne Festival Contemporary Orchestra | Patricia Kopatchinskaja | Tito Muñoz",
+    "start_datetime": "2022-11-19 18:30:00",
+    "end_datetime": null,
+    "location": "KKL Luzern, Concert Hall",
+    "artists": "Ligeti, de Machaut, Kuwabara, Koshelev, Dunn, Baticci"
+  },
+  {
+    "id": 3,
+    "name": "Soloists and Ensembles of the Lucerne Festival Contemporary Orchestra (LFCO)",
+    "start_datetime": "2022-11-19 21:00:00",
+    "end_datetime": null,
+    "location": "Neubad, Saal",
+    "artists": "Pinto, Korsun, Kokoras, Nelson"
+  },
+  {
+    "id": 4,
+    "name": "“Whoaaa, Doodles Can Sound Like THAT?!!”",
+    "start_datetime": "2022-11-20 13:00:00",
+    "end_datetime": "2022-11-20 14:15:00",
+    "location": "KKL Lucerne, Rehearsal Hall",
+    "artists": null
+  },
+  {
+    "id": 5,
+    "name": "Ensemble of the Lucerne Festival Contemporary Orchestra (LFCO) | Tito Muñoz",
+    "start_datetime": "2022-11-20 18:30:00",
+    "end_datetime": null,
+    "location": "KKL Luzern, Concert Hall",
+    "artists": "Chin et al."
+  }
+]
