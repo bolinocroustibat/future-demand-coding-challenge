@@ -82,3 +82,4 @@ python3 main.py export-db [--help]
 - Save the locations as a separate table, with a many-to-many relationship with the events.
 - Save the locations as GeoJSON, to be able to use the [PostGIS](https://postgis.net/) extension of PostgreSQL.
 - Manage the update of an existing event, if it is re-parsed.
+- Use FastAPI and Uvicorn to create a small website and webserver to serve the plots as a webpage.
