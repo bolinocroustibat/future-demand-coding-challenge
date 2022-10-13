@@ -14,12 +14,9 @@ class LucerneFestivalCrawler(EventsCrawler):
 
     # The URLs to start with
     START_URLS = [
-        "https://www.lucernefestival.ch/en/tickets/program"
-        # "https://www.lucernefestival.ch/en/program/summer-festival-22",
+        # "https://www.lucernefestival.ch/en/tickets/program,"
+        "https://www.lucernefestival.ch/en/program/summer-festival-22",
     ]
-
-    # The urls that are allowed as articles
-    ALLOWED_URLS = ["www.lucernefestival.ch"]
 
     # Events from lucernefestival.ch don't have a year, so it needs to be set manually
     YEAR = "2022"

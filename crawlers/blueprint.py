@@ -61,9 +61,9 @@ class EventsCrawler:
         soup = BeautifulSoup(html, "html.parser")
         links = set()
 
-        # Find all absolute links that match with the ALLOWED_URLS crawler rule
+        # Find all absolute links that match with the crawler HOST
         absolute_links_soup = soup.find_all(
-            "a", href=re.compile(r"\b(?:{})\b".format("|".join(self.ALLOWED_URLS)))
+            "a", href=re.compile(r"\b(?:{})\b".format("|".join(self.HOST)))
         )  # https://stackoverflow.com/questions/6750240/how-to-do-re-compile-with-a-list-in-python
         for link in absolute_links_soup:
             link.add(link["href"])

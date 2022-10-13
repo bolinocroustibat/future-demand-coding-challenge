@@ -43,9 +43,15 @@ poetry install
 make install
 ```
 
-## Configuration
+## Crawlers configuration
 
-Optional configurations in the "lucernefestival" crawler are the crawlers arguments. You can change them in the `lucernefestival.py` file.
+Each crawler, for each website, can have specific parameters.
+The configuration can be done in each crawler class file, in the `crawler` folder, for example in `crawlers/lucerne_festival.py` file.
+Minimum crawlers parameters are:
+- `HOST`: the base URL of the website,
+- `START_URLS`: the URL of the pages to start crawling from.
+
+Each crawler can have more specific parameters, depending on the website.
 
 ## Commands
 
