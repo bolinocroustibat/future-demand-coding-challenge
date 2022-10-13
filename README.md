@@ -57,16 +57,21 @@ Each crawler can have more specific parameters, depending on the website.
 
 - To create the database table:
 ```sh
-python3 create_database.py [--help]
+python3 main.py create-db [--help]
 ```
 
 - To run a crawler:
 ```sh
-python3 crawl.py [--crawler-name] [--help] [--verbose]
+python3 main.py crawl [--crawler-name] [--help] [--verbose]
 ```
 for example:
 ```sh
-python3 crawl.py "lucernefestival"
+python3 main.py crawl "lucernefestival"
+```
+
+- To export the DB to a CSV file:
+```sh
+python3 main.py export-db [--help]
 ```
 
 ## Possible future improvements
