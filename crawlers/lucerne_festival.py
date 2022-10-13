@@ -3,9 +3,9 @@ from typing import List, Optional
 
 from bs4 import BeautifulSoup
 
-from .blueprint import EventsCrawler
-
 from models.events import Event
+
+from .blueprint import EventsCrawler
 
 
 class LucerneFestivalCrawler(EventsCrawler):
@@ -29,13 +29,13 @@ class LucerneFestivalCrawler(EventsCrawler):
         events_list_soup = soup.find("ul", class_="event-list")
         if events_list_soup:
             if self.verbose:
-                self.logger.info("Found events.")
+                self.logger.success("Found events!")
             events: list = []
             for li_soup in events_list_soup.find_all("li"):
                 event: Optional[Event] = self._get_event(soup=li_soup)
                 if event:
                     events.append(event)
-            self.logger.debug(events)
+            # self.logger.debug(events)
             return events
         return None
 

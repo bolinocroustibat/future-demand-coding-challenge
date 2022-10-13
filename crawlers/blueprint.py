@@ -3,9 +3,11 @@ from typing import Generator, Optional, Set
 
 import requests
 from bs4 import BeautifulSoup
-from models.events import Event, engine
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session
+from tqdm import tqdm
+
+from models.events import Event, engine
 
 
 class EventsCrawler:
@@ -26,27 +28,25 @@ class EventsCrawler:
         """
         :returns: a generator of Event objects
         """
-        if self.verbose:
-            if self.START_URLS:
-                for url in self.START_URLS:
-                    if self.verbose:
-                        self.logger.info(f"Parsing content from {url}...")
-                    # Parse the page for events
-                    events: list[Event] = self._get_events_from_page(url=url)
-                    if events:
-                        self._save_into_database(events=events)
-                    if self.verbose:
-                        self.logger.info(f"Getting links from {url}...")
-                    for link in self._extract_links(url=url):
-                        if link != url:
-                            if self.verbose:
-                                self.logger.info(
-                                    f"Found page {link}. Parsing content..."
-                                )
-                            # Parse the page for events
-                            events: list[Event] = self._get_events_from_page(url=link)
-                            if events:
-                                self._save_into_database(events=events)
+        if self.START_URLS:
+            self.logger.info(f"Parsing pages of website {self.__class__.HOST}...")
+            for url in self.START_URLS:
+                if self.verbose:
+                    self.logger.info(f"Parsing content from {url}...")
+                # Parse the page for events
+                events: list[Event] = self._get_events_from_page(url=url)
+                if events:
+                    self._save_into_database(events=events)
+                if self.verbose:
+                    self.logger.info(f"Getting links from {url}...")
+                for link in tqdm(self._extract_links(url=url)):
+                    if link != url:
+                        if self.verbose:
+                            self.logger.info(f"Found page {link}. Parsing content...")
+                        # Parse the page for events
+                        events: list[Event] = self._get_events_from_page(url=link)
+                        if events:
+                            self._save_into_database(events=events)
             self.logger.warning(
                 f"No more URLs to parse found for crawler {self.__class__.__name__}."
             )
@@ -98,16 +98,14 @@ class EventsCrawler:
                     session.add(event)
                     session.commit()
                 except IntegrityError as e:
-                    if self.verbose:
-                        self.logger.warning(
-                            f'Couldn\'t save event "{event.name}" into the database, probably because it already exists.'
-                        )
+                    self.logger.warning(
+                        f'Couldn\'t save event "{event.name}" into the database, probably because it already exists.'
+                    )
                 except Exception as e:
                     self.logger.error(
                         f'Couldn\'t save event "{event.name}" into the database: {str(e)}'
                     )
                 else:
-                    if self.verbose:
-                        self.logger.info(
-                            f'Saved event "{event.name}" into the database.'
-                        )
+                    self.logger.success(
+                        f'Saved event "{event.name}" into the database.'
+                    )
