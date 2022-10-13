@@ -1,6 +1,6 @@
 import os
-from sqlmodel import create_engine
 
+from sqlmodel import create_engine
 
 POSTGRES_URL: str = f"postgresql://postgres@localhost:5432/{os.environ['POSTGRES_DB']}"
 

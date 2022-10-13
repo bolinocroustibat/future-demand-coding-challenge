@@ -1,4 +1,7 @@
+import matplotlib.pyplot as plt
+import pandas as pd
 import psycopg2
+import seaborn as sns
 import typer
 from sqlmodel import SQLModel
 
@@ -56,6 +59,27 @@ def export_db() -> None:
         cursor.copy_expert(sql, file)
     cursor.close()
     logger.success("Database exported to CSV.")
+
+
+@app.command()
+def plot() -> None:
+    df = pd.read_csv(
+        CSV_PATH,
+        names=["id", "name", "start_datetime", "end_datetime", "location", "artists"],
+        header=None,
+    )
+    df = (
+        pd.to_datetime(df["start_datetime"])
+        .dt.floor("d")
+        .value_counts()
+        .rename_axis("Day")
+        .reset_index(name="Events")
+    )
+    fig, ax = plt.subplots(figsize=(8, 8))
+    fig = sns.barplot(x="Day", y="Events", data=df, order=df["Day"])
+    x_dates = df["Day"].dt.strftime("%Y-%m-%d").sort_values().unique()
+    ax.set_xticklabels(labels=x_dates, rotation=45, ha="right")
+    plt.show()
 
 
 if __name__ == "__main__":
