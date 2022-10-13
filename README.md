@@ -18,7 +18,7 @@
 
 - Start Docker
 
-- Export env variable `POSTGRES_DB` for defining your default PostgreSQL database:
+- Export env variable `POSTGRES_DB` for defining the name of your PostgreSQL database:
 ```sh
 export POSTGRES_DB="future-demand"
 ```

@@ -1,14 +1,9 @@
-import re
-from typing import Generator, Optional, Set
-
-import requests
 import typer
-from bs4 import BeautifulSoup
-from tqdm import tqdm
 
 from helpers import CustomLogger
 
 from settings import CRAWLERS
+
 
 app = typer.Typer()
 logger = CustomLogger()
@@ -24,7 +19,7 @@ def crawl(
         logger.error(f"Crawler {crawler_name} not found.")
     else:
         crawler = crawler_class(logger=logger, verbose=verbose)
-        crawled: Generator = crawler.run()
+        crawler.run()
 
 
 def get_crawler_class(name: str):
