@@ -12,7 +12,7 @@ from models.events import Event, engine
 
 class EventsCrawler:
 
-    HEADERS: str = {
+    HEADERS = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
     }
 
@@ -24,7 +24,7 @@ class EventsCrawler:
         self.logger = logger
         self.verbose = verbose
 
-    def run(self) -> Generator:
+    def run(self) -> None:
         """
         :returns: a generator of Event objects
         """
@@ -34,7 +34,7 @@ class EventsCrawler:
                 if self.verbose:
                     self.logger.info(f"Parsing content from {url}...")
                 # Parse the page for events
-                events: list[Event] = self._get_events_from_page(url=url)
+                events: Optional[list[Event]] = self._get_events_from_page(url=url)
                 if events:
                     self._save_into_database(events=events)
                 if self.verbose:
@@ -44,7 +44,7 @@ class EventsCrawler:
                         if self.verbose:
                             self.logger.info(f"Found page {link}. Parsing content...")
                         # Parse the page for events
-                        events: list[Event] = self._get_events_from_page(url=link)
+                        events = self._get_events_from_page(url=link)
                         if events:
                             self._save_into_database(events=events)
             self.logger.warning(

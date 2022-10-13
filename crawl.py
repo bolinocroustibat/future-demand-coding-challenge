@@ -1,9 +1,7 @@
 import typer
 
 from helpers import CustomLogger
-
 from settings import CRAWLERS
-
 
 app = typer.Typer()
 logger = CustomLogger()

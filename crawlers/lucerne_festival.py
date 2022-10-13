@@ -1,11 +1,10 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from bs4 import BeautifulSoup
 
+from crawlers.blueprint import EventsCrawler
 from models.events import Event
-
-from .blueprint import EventsCrawler
 
 
 class LucerneFestivalCrawler(EventsCrawler):
@@ -25,7 +24,7 @@ class LucerneFestivalCrawler(EventsCrawler):
     # Events from lucernefestival.ch don't have a year, so it needs to be set manually
     YEAR = "2022"
 
-    def _get_events(self, soup: BeautifulSoup) -> Optional[List[Event]]:
+    def _get_events(self, soup: BeautifulSoup) -> Optional[list[Event]]:
         events_list_soup = soup.find("ul", class_="event-list")
         if events_list_soup:
             if self.verbose:
@@ -41,7 +40,8 @@ class LucerneFestivalCrawler(EventsCrawler):
 
     def _get_event(self, soup: BeautifulSoup) -> Optional[Event]:
         title = soup.find("p", class_="event-title").text.strip()
-        start_time = None
+        start_time: Optional[datetime] = None
+        end_time: Optional[datetime] = None
         childs_soup = soup.find_all("div", class_="cell xlarge-6 body-small")
         if "Date and Venue" in childs_soup[0].text:
             # Date and Venue
@@ -51,16 +51,16 @@ class LucerneFestivalCrawler(EventsCrawler):
             time: str = date_and_venue[1].strip()
             if len(time.split("/")) > 1:
                 times: list = time.split("/")
-                start_time: datetime = datetime.strptime(
+                start_time = datetime.strptime(
                     "{}{} {}".format(date, self.YEAR, times[0].strip()),
                     "%a %d.%m.%Y %H.%M",
                 )
-                end_time: datetime = datetime.strptime(
+                end_time = datetime.strptime(
                     "{}{} {}".format(date, self.YEAR, times[1].strip()),
                     "%a %d.%m.%Y %H.%M",
                 )
             else:
-                start_time: datetime = datetime.strptime(
+                start_time = datetime.strptime(
                     f"{date}{self.YEAR} {time}", "%a %d.%m.%Y %H.%M"
                 )
                 end_time = None
