@@ -1,5 +1,5 @@
 import re
-from typing import Generator, Optional, Set
+from typing import Optional, Set
 
 import requests
 from bs4 import BeautifulSoup
@@ -7,7 +7,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session
 from tqdm import tqdm
 
-from models.events import Event, engine
+from models.events import Event
+from settings import engine
 
 
 class EventsCrawler:

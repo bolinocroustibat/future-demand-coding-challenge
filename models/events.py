@@ -1,14 +1,7 @@
-import os
 from datetime import datetime
 from typing import Optional
 
-from sqlmodel import Field, SQLModel, UniqueConstraint, create_engine
-
-
-engine = create_engine(
-    f"postgresql://postgres@localhost:5432/{os.environ['POSTGRES_DB']}",
-    echo=False,
-)
+from sqlmodel import Field, SQLModel, UniqueConstraint
 
 
 class Event(SQLModel, table=True):
