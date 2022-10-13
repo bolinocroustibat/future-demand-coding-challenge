@@ -1,7 +1,13 @@
+import os
 from datetime import datetime
 from typing import Optional
 
 from sqlmodel import Field, SQLModel, UniqueConstraint, create_engine
+
+engine = create_engine(
+    f"postgresql://postgres@localhost:5432/{os.environ['POSTGRES_DB']}",
+    echo=False,
+)
 
 
 class Event(SQLModel, table=True):
@@ -12,8 +18,3 @@ class Event(SQLModel, table=True):
     end_time: Optional[datetime] = None
     location: Optional[str] = None
     artists: Optional[str] = None
-
-
-engine = create_engine("postgresql://postgres@localhost:5432/future-demand", echo=True)
-
-SQLModel.metadata.create_all(engine)
