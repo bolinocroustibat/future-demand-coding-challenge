@@ -55,23 +55,28 @@ Each crawler can have more specific parameters, depending on the website.
 
 ## Commands
 
+- To execute the whole script:
+```sh
+python3 src/main.py run [--crawler-name] [--help] [--verbose]
+```
+for example:
+```sh
+python3 src/main.py run --crawler-name="lucernefestival"
+```
+
 - To create the database table:
 ```sh
-python3 main.py create-db [--help]
+python3 src/main.py create-db [--help]
 ```
 
 - To run a crawler:
 ```sh
-python3 main.py crawl [--crawler-name] [--help] [--verbose]
-```
-for example:
-```sh
-python3 main.py crawl "lucernefestival"
+python3 src/main.py crawl [--crawler-name] [--help] [--verbose]
 ```
 
 - To export the DB to a CSV file:
 ```sh
-python3 main.py export-db [--help]
+python3 src/main.py export-db [--help]
 ```
 
 ## Possible future improvements

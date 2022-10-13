@@ -64,9 +64,14 @@ class EventsCrawler:
 
         # Find all absolute links that match with the crawler HOST
         absolute_links_soup = soup.find_all(
-            "a", href=re.compile(r"\b(?:{})\b".format("|".join(self.HOST)))
-        )  # https://stackoverflow.com/questions/6750240/how-to-do-re-compile-with-a-list-in-python
+            "a", href=re.compile(r"\b(?:{})\b".format(self.HOST))
+        )
+        # If we want to allow several hosts
+        # absolute_links_soup = soup.find_all(
+        #     "a", href=re.compile(r"\b(?:{})\b".format("|".join([self.ALLOWED_HOSTS])))
+        # ) # https://stackoverflow.com/questions/6750240/how-to-do-re-compile-with-a-list-in-python
         for link in absolute_links_soup:
+            self.logger.debug(f"Found absolute link {link['href']}")
             link.add(link["href"])
 
         # Find all relative links and add the domain

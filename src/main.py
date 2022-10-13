@@ -47,9 +47,7 @@ def get_crawler_class(name: str):
 
 @app.command()
 def export_db() -> None:
-
     sql: str = "COPY (SELECT * FROM event) TO STDOUT WITH CSV DELIMITER ','"
-
     connection = psycopg2.connect(POSTGRES_URL)
     cursor = connection.cursor()
     with open(CSV_PATH, "w") as file:
@@ -57,6 +55,15 @@ def export_db() -> None:
     cursor.close()
     logger.success("Database exported to CSV.")
 
+
+@app.command()
+def run(
+    crawler_name: str = typer.Option(None, help="Name of the specific crawler."),
+    verbose: bool = typer.Option(True, help="Verbose mode."),
+) -> None:
+    create_table()
+    crawl(crawler_name=crawler_name, verbose=verbose)
+    export_db()
 
 if __name__ == "__main__":
     app()

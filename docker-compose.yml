@@ -2,6 +2,13 @@ version: "3"
 
 services:
 
+  script:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/future-demand-coding-challenge
+
   postgres:
     image: postgres:14.2-alpine
     container_name: future-demand-coding-challenge-postgres
