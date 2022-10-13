@@ -26,3 +26,6 @@ poetry.lock
 __pypackages__
 .pdm.toml
 pdm.lock
+
+# MyPy
+.mypy_cache/
