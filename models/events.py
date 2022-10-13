@@ -12,10 +12,10 @@ engine = create_engine(
 
 
 class Event(SQLModel, table=True):
-    __table_args__ = (UniqueConstraint("name", "start_time"),)
+    __table_args__ = (UniqueConstraint("name", "start_datetime"),)
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    start_time: datetime
-    end_time: Optional[datetime] = None
+    start_datetime: datetime
+    end_datetime: Optional[datetime] = None
     location: Optional[str] = None
     artists: Optional[str] = None

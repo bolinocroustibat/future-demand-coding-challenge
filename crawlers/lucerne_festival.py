@@ -40,8 +40,9 @@ class LucerneFestivalCrawler(EventsCrawler):
 
     def _get_event(self, soup: BeautifulSoup) -> Optional[Event]:
         title = soup.find("p", class_="event-title").text.strip()
-        start_time: Optional[datetime] = None
-        end_time: Optional[datetime] = None
+        start_datetime: Optional[datetime] = None
+        end_datetime: Optional[datetime] = None
+        artists_str: Optional[str] = None
         childs_soup = soup.find_all("div", class_="cell xlarge-6 body-small")
         if "Date and Venue" in childs_soup[0].text:
             # Date and Venue
@@ -51,27 +52,33 @@ class LucerneFestivalCrawler(EventsCrawler):
             time: str = date_and_venue[1].strip()
             if len(time.split("/")) > 1:
                 times: list = time.split("/")
-                start_time = datetime.strptime(
+                start_datetime = datetime.strptime(
                     "{}{} {}".format(date, self.YEAR, times[0].strip()),
                     "%a %d.%m.%Y %H.%M",
                 )
-                end_time = datetime.strptime(
+                end_datetime = datetime.strptime(
                     "{}{} {}".format(date, self.YEAR, times[1].strip()),
                     "%a %d.%m.%Y %H.%M",
                 )
             else:
-                start_time = datetime.strptime(
+                start_datetime = datetime.strptime(
                     f"{date}{self.YEAR} {time}", "%a %d.%m.%Y %H.%M"
                 )
-                end_time = None
+                end_datetime = None
             venue: str = date_and_venue[2].strip()
         if "Program" in childs_soup[1].text:
             # Program
             childs_soup[1].strong.extract()
+            artists: list = [a.strip() for a in childs_soup[1].text.split("|")]
+            artists_str: str = ", ".join(artists)
 
-        if title and start_time:
+        if title and start_datetime:
             return Event(
-                name=title, start_time=start_time, end_time=end_time, location=venue
+                name=title,
+                start_datetime=start_datetime,
+                end_datetime=end_datetime,
+                location=venue,
+                artists=artists_str,
             )
 
         return None
