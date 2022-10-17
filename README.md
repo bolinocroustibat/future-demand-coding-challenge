@@ -43,7 +43,7 @@ poetry install
 make install
 ```
 
-## Crawlers configuration
+## Crawlers
 
 Each crawler, for each website, can have specific parameters.
 The configuration can be done in each crawler class file, in the `crawler` folder, for example in `crawlers/lucerne_festival.py` file.
@@ -53,11 +53,18 @@ Minimum crawlers parameters are:
 
 Each crawler can have more specific parameters, depending on the website.
 
+Here are the available crawlers:
+
+### lucerne_festival crawler
+
+Crawls the [Lucerne Festival](https://www.lucernefestival.ch/en/) website.
+For now, this is the only crawler available.
+
 ## To run
 
 Once Docker and therefore PostgreSQL is running, one single command will create the database table, run the selected crawler, export the database, and plot the data:
 ```sh
-python3 main.py run "lucernefestival"
+python3 main.py run "lucerne_festival"
 ```
 
 ## Other commands
@@ -73,7 +80,7 @@ python3 main.py crawl [--crawler-name] [--help] [--verbose]
 ```
 for example:
 ```sh
-python3 main.py crawl --crawler-name "lucernefestival"
+python3 main.py crawl --crawler-name "lucerne_festival"
 ```
 
 - To export the DB to a CSV file:

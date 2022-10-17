@@ -14,7 +14,7 @@ logger = CustomLogger()
 
 
 CRAWLERS: dict = {
-    "lucernefestival": LucerneFestivalCrawler,
+    "lucerne_festival": LucerneFestivalCrawler,
 }
 
 
