@@ -51,7 +51,9 @@ def get_crawler_class(name: str):
 @app.command()
 def export_db() -> None:
 
-    sql: str = "COPY (SELECT * FROM event) TO STDOUT WITH CSV DELIMITER ','"
+    logger.info("Eporting events table from database in CSV format...")
+
+    sql: str = "COPY (SELECT * FROM events) TO STDOUT WITH CSV DELIMITER ','"
 
     connection = psycopg2.connect(POSTGRES_URL)
     cursor = connection.cursor()
@@ -63,6 +65,7 @@ def export_db() -> None:
 
 @app.command()
 def plot() -> None:
+    logger.info("Plotting the data with Seaborn...")
     df = pd.read_csv(
         CSV_PATH,
         names=["id", "name", "start_datetime", "end_datetime", "location", "artists"],
@@ -80,6 +83,16 @@ def plot() -> None:
     x_dates = df["Day"].dt.strftime("%Y-%m-%d").sort_values().unique()
     ax.set_xticklabels(labels=x_dates, rotation=45, ha="right")
     plt.show()
+
+
+@app.command()
+def run(
+    crawler_name: str = typer.Option(None, help="Name of the specific crawler."),
+    verbose: bool = typer.Option(True, help="Verbose mode."),
+) -> None:
+    crawl(crawler_name=crawler_name, verbose=verbose)
+    export_db()
+    plot()
 
 
 if __name__ == "__main__":

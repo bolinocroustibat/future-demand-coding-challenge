@@ -53,7 +53,14 @@ Minimum crawlers parameters are:
 
 Each crawler can have more specific parameters, depending on the website.
 
-## Commands
+## To run
+
+Once Docker and therefore PostgreSQL is running, one single command will create the database table, run the selected crawler, export the database, and plot the data:
+```sh
+python3 main.py run "lucernefestival"
+```
+
+## Other commands
 
 - To create the database table:
 ```sh
@@ -76,10 +83,11 @@ python3 main.py export-db [--help]
 
 ## Possible future improvements
 
-- Add unit tests, using [pytest](https://docs.pytest.org/en/stable/).
-- Use a separate table for artists and events, with a many-to-many relationship between them.
 - Add more crawlers for other websites. The current architecture is flexible enough to add more crawlers very easily.
-- Save the locations as a separate table, with a many-to-many relationship with the events.
+- Use Docker, FastAPI and Uvicorn to create a small website and webserver to serve the plots as a webpage, and to add a web interface to run the crawlers.
+- Add unit tests, using [pytest](https://docs.pytest.org/en/stable/).
+- Use a separate DB table for artists and events, with a many-to-many relationship between them (a basic model is already implemented in `/models`).
+- Use a separate DB table for locations and events, with a many-to-many relationship between them (a basic model is already implemented in `/models`).
 - Save the locations as GeoJSON, to be able to use the [PostGIS](https://postgis.net/) extension of PostgreSQL.
 - Manage the update of an existing event, if it is re-parsed.
-- Use FastAPI and Uvicorn to create a small website and webserver to serve the plots as a webpage.
+- Save the event image files locally, and serve it from the website.
