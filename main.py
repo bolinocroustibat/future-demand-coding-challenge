@@ -90,6 +90,7 @@ def run(
     crawler_name: str = typer.Option(None, help="Name of the specific crawler."),
     verbose: bool = typer.Option(True, help="Verbose mode."),
 ) -> None:
+    create_table()
     crawl(crawler_name=crawler_name, verbose=verbose)
     export_db()
     plot()

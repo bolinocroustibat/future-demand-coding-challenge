@@ -73,7 +73,7 @@ python3 main.py crawl [--crawler-name] [--help] [--verbose]
 ```
 for example:
 ```sh
-python3 main.py crawl "lucernefestival"
+python3 main.py crawl --crawler-name "lucernefestival"
 ```
 
 - To export the DB to a CSV file:

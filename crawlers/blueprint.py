@@ -34,20 +34,14 @@ class EventsCrawler:
             for url in self.START_URLS:
                 if self.verbose:
                     self.logger.info(f"Parsing content from {url}...")
-                # Parse the page for events
-                events: Optional[list[Event]] = self._get_events_from_page(url=url)
-                if events:
-                    self._save_into_database(events=events)
+                self._save_events_from_page(url=url)
                 if self.verbose:
                     self.logger.info(f"Getting links from {url}...")
                 for link in tqdm(self._extract_links(url=url)):
                     if link != url:
                         if self.verbose:
                             self.logger.info(f"Found page {link}. Parsing content...")
-                        # Parse the page for events
-                        events = self._get_events_from_page(url=link)
-                        if events:
-                            self._save_into_database(events=events)
+                        self._save_events_from_page(url=url)
             self.logger.warning(
                 f"No more URLs to parse found for crawler {self.__class__.__name__}."
             )
@@ -83,16 +77,21 @@ class EventsCrawler:
 
         return links
 
-    def _get_events_from_page(self, url: str) -> Optional[list[Event]]:
+    def _save_events_from_page(self, url: str) -> None:
+        soup = self._get_soup_from_url(url=url)
+        if soup:
+            events = self._get_events(soup=soup)
+        if events:
+            self._save_into_database(events=events)
+
+    def _get_soup_from_url(self, url: str) -> Optional[BeautifulSoup]:
         try:
             html = requests.get(url, headers=self.HEADERS).content
         except Exception as e:
             self.logger.error(f"Request error: {str(e)}")
         else:
             soup = BeautifulSoup(html, "html.parser")
-            if soup:
-                return self._get_events(soup=soup)
-            return None
+            return soup if soup else None
 
     def _save_into_database(self, events: list[Event]) -> None:
         """
