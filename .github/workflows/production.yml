@@ -1,0 +1,40 @@
+name: Production Workflow
+
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - "*.md"
+      - "*.gitignore"
+
+jobs:
+  production:
+    name: Deploy production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2.1.6
+        with:
+          poetry-version: 1.2
+
+      - name: Install Python dependencies
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --without dev --no-root
+
+      - name: Check git branch
+        run: echo "${{ github.ref_name }}"
+
+      - name: Check git commit id
+        run: echo "${{ github.sha }}"
+
+      - name: Run the crawler workflow
+        run: python3 main.py run "lucerne_festival"
